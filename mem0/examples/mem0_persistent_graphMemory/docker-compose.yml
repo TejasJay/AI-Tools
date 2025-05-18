@@ -1,0 +1,29 @@
+# Docker Compose + Chatbot Application with Memgraph
+
+version: '3.8'
+
+services:
+  memgraph:
+    image: memgraph/memgraph-mage:latest
+    container_name: memgraph
+    ports:
+      - "7687:7687"  # Bolt protocols
+      - "7444:7444"  # Web UI.
+    volumes:
+      - memgraph_data:/var/lib/memgraph
+    command: --schema-info-enabled=True
+
+  chatbot:
+    build: ./chatbot
+    container_name: mem0-chatbot
+    depends_on:
+      - memgraph
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./chatbot:/app
+    working_dir: /app
+    command: ["python", "main.py"]
+
+volumes:
+  memgraph_data:

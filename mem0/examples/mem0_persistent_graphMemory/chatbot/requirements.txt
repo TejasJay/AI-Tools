@@ -1,0 +1,4 @@
+openai
+python-dotenv
+mem0ai[graph]
+git+https://github.com/langchain-ai/langchain-memgraph.git@main
