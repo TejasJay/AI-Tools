@@ -1,6 +1,7 @@
 from mem0 import Memory
 from openai import OpenAI
 from dotenv import load_dotenv
+from pandas import pd
 import os
 
 load_dotenv()
